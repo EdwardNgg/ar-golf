@@ -27,7 +27,7 @@ public class ActionController : MonoBehaviour {
     _actions = new Actions();
     _planeSelection = GetComponent<PlaneSelectionController>();
     
-    _actions.touch.select.started += OnSelectTouchStarted;
+    _actions.touch.select.performed += OnSelectTouchPerformed;
   }
 
   /// <summary>
@@ -48,7 +48,7 @@ public class ActionController : MonoBehaviour {
   /// Selects a detected plane when the user performs a touch on the screen.
   /// </summary>
   /// <param name="context"></param>
-  private void OnSelectTouchStarted(InputAction.CallbackContext context) {
+  private void OnSelectTouchPerformed(InputAction.CallbackContext context) {
     Vector2 screenPosition = context.ReadValue<Vector2>();
     _planeSelection.HandleSelectPlane(screenPosition);
   }
