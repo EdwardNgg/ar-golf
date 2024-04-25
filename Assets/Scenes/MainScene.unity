@@ -459,6 +459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94842b2701da4b0593b412b06e998101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultPlaneMaterial: {fileID: 2100000, guid: d173d189ae10a4cdd8fe7027d194ded3, type: 2}
+  selectedPlaneMaterial: {fileID: 2100000, guid: 6739ad5b555914880bdd8a219958e6db, type: 2}
 --- !u!114 &666506290
 MonoBehaviour:
   m_ObjectHideFlags: 0
