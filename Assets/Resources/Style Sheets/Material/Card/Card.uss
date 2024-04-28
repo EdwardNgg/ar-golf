@@ -1,0 +1,9 @@
+.card {
+    width: 100%;
+    padding: 0;
+    
+    border-width: 0;
+    border-radius: var(--shape-corner-large);
+    
+    background-color: var(--color-surface-container-highest);
+}

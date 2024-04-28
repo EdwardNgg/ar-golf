@@ -1,0 +1,11 @@
+.card__headline {
+    margin: 0 0 8px 0;
+    padding: 0;
+    
+    -unity-font-definition: var(--type-headline-small-font);
+    font-size: var(--type-headline-small-size);
+    letter-spacing: var(--type-headline-small-tracking);
+    white-space: normal;
+    
+    color: var(--color-on-surface);
+}

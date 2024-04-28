@@ -1,0 +1,7 @@
+.card__content {
+    padding: 16px;
+    
+    background-color: rgba(0, 0, 0, 0);
+    
+    border-width: 0;
+}
