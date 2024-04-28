@@ -5,6 +5,7 @@
 //  Created by Edward Ng on 04/23/2024.
 //-----------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -14,6 +15,23 @@ using UnityEngine.XR.ARSubsystems;
 /// Selects a detected AR plane and modifies its material.
 /// </summary>
 public class PlaneSelectionController : MonoBehaviour {
+
+  /// <summary>
+  /// The PlaneSelected event occurs whenever the user selects or deselects a plane.
+  /// </summary>
+  public event Action<ARPlane> PlaneSelected;
+
+  /// <summary>
+  /// The currently selected plane.
+  /// </summary>
+  // ReSharper disable once MemberCanBePrivate.Global
+  public ARPlane Plane {
+    get => _plane;
+    set {
+      _plane = value;
+      PlaneSelected?.Invoke(value);
+    }
+  }
 
   /// <summary>
   /// The default material for visualizing AR planes. Typically, it is the material attached to the
@@ -73,7 +91,7 @@ public class PlaneSelectionController : MonoBehaviour {
       MeshRenderer planeMesh = plane.gameObject.GetComponent<MeshRenderer>();
       planeMesh.material = selectedPlaneMaterial;
 
-      _plane = plane;
+      Plane = plane;
     }
   }
 
@@ -81,10 +99,10 @@ public class PlaneSelectionController : MonoBehaviour {
   /// Deselects the currently selected plane by returning the original material to the plane.
   /// </summary>
   private void DeselectPlane() {
-    if (_plane != null) {
-      MeshRenderer planeMesh = _plane.gameObject.GetComponent<MeshRenderer>();
+    if (Plane != null) {
+      MeshRenderer planeMesh = Plane.gameObject.GetComponent<MeshRenderer>();
       planeMesh.material = defaultPlaneMaterial;
-      _plane = null;
+      Plane = null;
     }
   }
 }
