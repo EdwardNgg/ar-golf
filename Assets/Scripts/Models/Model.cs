@@ -5,6 +5,7 @@
 //  Created by Edward Ng on 04/28/2024.
 //-----------------------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -16,7 +17,23 @@ public class Model : MonoBehaviour {
   /// <summary>
   /// The current state of the application.
   /// </summary>
-  private State _state = State.SurfaceSelection;
+  public AppState State {
+    get => _state;
+    set {
+      _state = value;
+      StateChange?.Invoke(value);
+    }
+  }
+
+  /// <summary>
+  /// The StateChange event occurs when the application state is updated.
+  /// </summary>
+  public event Action<AppState> StateChange;
+
+  /// <summary>
+  /// The current state of the application.
+  /// </summary>
+  private AppState _state = AppState.SurfaceSelection;
 
   /// <summary>
   /// The currently selected plane.

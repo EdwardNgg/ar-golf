@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ui:VisualElement class="body">
-        <Material.Card.Card>
-            <Material.Card.CardContent>
-                <Material.Card.CardHeadline text="Surface Selection" />
-                <Material.Card.CardSupportingText text="Tap on the surface you would like to build a golf course on." />
-                <Material.Card.CardActions>
-                    <Material.Card.CardButton label-text="Continue" disabled="true" />
-                </Material.Card.CardActions>
-            </Material.Card.CardContent>
-        </Material.Card.Card>
     </ui:VisualElement>
 </ui:UXML>
