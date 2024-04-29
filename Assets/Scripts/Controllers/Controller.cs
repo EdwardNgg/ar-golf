@@ -16,6 +16,11 @@ using UnityEngine.XR.ARFoundation;
 class Controller : MonoBehaviour {
   
   /// <summary>
+  /// The model containing the state of the application.
+  /// </summary>
+  private Model _model;
+  
+  /// <summary>
   /// The controller responsible for selecting planes.
   /// </summary>
   private PlaneSelectionController _planeSelection;
@@ -24,6 +29,8 @@ class Controller : MonoBehaviour {
   /// Awake is called when a new instance of the behavior is created.
   /// </summary>
   public void Awake() {
+    _model = GetComponent<Model>();
+    
     _planeSelection = GetComponent<PlaneSelectionController>();
     if (_planeSelection != null) {
       _planeSelection.PlaneSelected += OnPlaneSelected;
@@ -44,6 +51,6 @@ class Controller : MonoBehaviour {
   /// </summary>
   /// <param name="plane"></param>
   public void OnPlaneSelected(ARPlane plane) {
-    
+    _model.Plane = plane;
   } 
 }
