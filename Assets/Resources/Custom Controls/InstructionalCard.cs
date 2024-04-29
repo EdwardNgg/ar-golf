@@ -41,6 +41,14 @@ public class InstructionalCard : Card {
   private readonly string _assetPath = "Visual Tree Assets/InstructionalCard";
 
   /// <summary>
+  /// Whether the InstructionalCard button is disabled.
+  /// </summary>
+  public bool Disabled {
+    get => _button.disabled;
+    set => _button.disabled = value;
+  }
+
+  /// <summary>
   /// The headline of the InstructionalCard.
   /// </summary>
   private CardHeadline _headline => this.Q<CardHeadline>("instructional-card-headline");

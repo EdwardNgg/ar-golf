@@ -31,6 +31,22 @@ public class Model : MonoBehaviour {
   public event Action<AppState> StateChange;
 
   /// <summary>
+  /// The currently selected plane.
+  /// </summary>
+  public ARPlane Plane {
+    get => _plane;
+    set {
+      _plane = value;
+      PlaneChange?.Invoke(value);
+    }
+  }
+  
+  /// <summary>
+  /// The PlaneChange event occurs when the user selects/deselects an AR plane.
+  /// </summary>
+  public event Action<ARPlane> PlaneChange;
+  
+  /// <summary>
   /// The current state of the application.
   /// </summary>
   private AppState _state = AppState.SurfaceSelection;
@@ -38,5 +54,5 @@ public class Model : MonoBehaviour {
   /// <summary>
   /// The currently selected plane.
   /// </summary>
-  public ARPlane Plane { get; set; }
+  private ARPlane _plane;
 }
