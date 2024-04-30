@@ -9,36 +9,63 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 
+/// <summary>
+/// The View presents content through the UIToolkit user interface.
+/// </summary>
 public class View : MonoBehaviour {
-  
-  /// <summary>
-  /// The root UI document in the application.
-  /// </summary>
-  public UIDocument document;
   
   /// <summary>
   /// The model representing the state of the application.
   /// </summary>
-  private Model _model;
+  public Model model;
+    
+  /// <summary>
+  /// The root UI document in the application.
+  /// </summary>
+  private UIDocument _document;
 
   /// <summary>
-  /// Returns the body of the root UI document in the application.
+  /// The view that represents and manages instructional cards on the user interface.
   /// </summary>
-  private VisualElement _body => document.rootVisualElement.Q<VisualElement>(className: "body");
+  private InstructionalCardView _instructionalCards;
 
-  private InstructionalCard _card => document.rootVisualElement.Q<InstructionalCard>();
+  /// <summary>
+  /// Determines if the pointer at a screen position is over a UI element.
+  /// </summary>
+  /// <param name="screenPosition">
+  /// The position of the pointer relative to the screen at the top-left.
+  /// </param>
+  /// <returns>Whether the pointer is over a UI element.</returns>
+  public bool IsPointerOverUI(Vector2 screenPosition) {
+    IPanel panel = _document.rootVisualElement.panel;
+    
+    Vector2 bottomLeftScreenPosition = screenPosition;
+    bottomLeftScreenPosition.y = Screen.height - bottomLeftScreenPosition.y;
+    Vector2 worldPosition = RuntimePanelUtils.ScreenToPanel(panel, bottomLeftScreenPosition);
+
+    VisualElement picked = panel.Pick(worldPosition);
+    return picked != null;
+  }
 
   /// <summary>
   /// Awake is called when a new instance of the behavior is created.
   /// </summary>
   private void Awake() {
-    _model = GetComponent<Model>();
-    if (_model != null) {
-      OnStateChange(_model.State);
-      OnPlaneChange(_model.Plane);
-      _model.StateChange += OnStateChange;
-      _model.PlaneChange += OnPlaneChange;
+    _document = GetComponent<UIDocument>();
+    _instructionalCards = GetComponent<InstructionalCardView>();
+    
+    if (model != null) {
+      model.StateChange += OnStateChange;
+      model.PlaneChange += OnPlaneChange;
     }
+  }
+
+  /// <summary>
+  /// Start is called before the first frame update.
+  /// </summary>
+  private void Start() {
+    OnStateChange(model.State);
+    OnPlaneChange(model.Plane);
   }
 
   /// <summary>
@@ -46,11 +73,11 @@ public class View : MonoBehaviour {
   /// disabled attribute to the instructional card button when the application state is in
   /// PlaneSelection mode.
   /// </summary>
-  /// <param name="plane"></param>
+  /// <param name="plane">The plane that is currently selected.</param>
   private void OnPlaneChange(ARPlane plane) {
-    if (_model.State == AppState.SurfaceSelection) {
+    if (model.State == AppState.SurfaceSelection) {
       bool disabled = plane == null;
-      _card.Disabled = disabled;
+      _instructionalCards.SetButtonDisabled(disabled);
     }
   }
 
@@ -62,23 +89,21 @@ public class View : MonoBehaviour {
   private void OnStateChange(AppState state) {
     switch (state) {
       case AppState.SurfaceSelection: {
-        string headline = "Surface Selection";
-        string support = "Tap on the surface you would like to build a golf course on.";
-        RenderInstructionalCard(headline, support);
+        _instructionalCards.AddCard(
+            headline: "Surface Selection",
+            supportingText: "Move the camera around to scan for surfaces. Tap on the surface to " +
+                            "build a golf course on.",
+            onButtonPointerDown: () => model.State = AppState.MarkerRegistration);
+        break;
+      }
+      case AppState.MarkerRegistration: {
+        _instructionalCards.AddCard(
+            headline: "Marker Registration",
+            supportingText: "Place the four markers on the surface to create the starting point, " +
+                            "teleportation points, and goal.",
+            onButtonPointerDown: () => { });
         break;
       }
     }
-  }
-  
-  /// <summary>
-  /// Adds an instructional card to the application view.
-  /// </summary>
-  /// <param name="headline">The headline of the instructional card.</param>
-  /// <param name="supportingText">The supporting text of the instructional card.</param>
-  private void RenderInstructionalCard(string headline, string supportingText) {
-    InstructionalCard card = new InstructionalCard(headline, supportingText);
-    
-    _body.Clear();
-    _body.Add(card);
   }
 }

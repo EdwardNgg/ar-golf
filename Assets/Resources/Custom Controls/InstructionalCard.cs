@@ -5,6 +5,7 @@
 //  Created by Edward Ng on 04/28/2024.
 //-----------------------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -62,6 +63,11 @@ public class InstructionalCard : Card {
   /// The button of the InstructionalCard.
   /// </summary>
   private CardButton _button => this.Q<CardButton>("instructional-card-button");
+
+  /// <summary>
+  /// The action that is taken when the button in the InstructionalCard is pressed.
+  /// </summary>
+  private Action _buttonAction;
   
   /// <summary>
   /// Initializes and returns an empty InstructionalCard.
@@ -72,13 +78,29 @@ public class InstructionalCard : Card {
   /// Initializes and returns an InstructionalCard using the headline and supporting text. Also
   /// includes a button to continue. 
   /// </summary>
-  /// <param name="headline"></param>
-  /// <param name="supportingText"></param>
-  public InstructionalCard(string headline, string supportingText) {
+  /// <param name="headline">The headline to add to the InstructionalCard.</param>
+  /// <param name="supportingText">The supporting text to add to the InstructionalCard.</param>
+  /// <param name="onButtonPointerDown">
+  /// The action to take when the button in the InstructionalCard is pressed.
+  /// </param>
+  public InstructionalCard(string headline, string supportingText, Action onButtonPointerDown) {
     VisualTreeAsset asset = Resources.Load<VisualTreeAsset>(_assetPath);
     asset.CloneTree(this);
 
     _headline.text = headline;
     _support.text = supportingText;
+    _buttonAction = onButtonPointerDown;
+    
+    _button.RegisterCallback<PointerDownEvent>(OnButtonPointerDown, TrickleDown.TrickleDown);
+  }
+  
+  /// <summary>
+  /// The OnButtonPointerDown handles when the user presses the button in the InstructionalCard.
+  /// </summary>
+  /// <param name="evt">The pointer down event.</param>
+  private void OnButtonPointerDown(PointerDownEvent evt) {
+    _buttonAction();
+    evt.PreventDefault();
+    evt.StopPropagation();
   }
 }

@@ -52,6 +52,21 @@ public class Card : Box {
   }
 
   /// <summary>
+  /// The name of the class of Cards that are positioned below the screen.
+  /// </summary>
+  public const string BottomClassName = "card--bottom";
+
+  /// <summary>
+  /// The name of the class of Cards that are positioned to the left of the screen.
+  /// </summary>
+  public const string LeftClassName = "card--left";
+
+  /// <summary>
+  /// The name of the class of Cards that are positioned to the right of the screen.
+  /// </summary>
+  public const string RightClassName = "card--right";
+
+  /// <summary>
   /// The name of the Card class.
   /// </summary>
   private readonly string _className = "card";

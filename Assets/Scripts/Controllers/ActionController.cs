@@ -12,12 +12,20 @@ using UnityEngine.InputSystem;
 /// Manages user input actions by interfacing with corresponding components.
 /// </summary>
 public class ActionController : MonoBehaviour {
+
+  /// <summary>
+  /// The view that presents application content through the user interface.
+  /// </summary>
+  public View view;
   
   /// <summary>
   /// The actions asset that contain a defined set of input actions.
   /// </summary>
   private Actions _actions;
 
+  /// <summary>
+  /// The controller that responds to touch selection actions and selects/deselects AR planes.
+  /// </summary>
   private PlaneSelectionController _planeSelection;
 
   /// <summary>
@@ -50,6 +58,8 @@ public class ActionController : MonoBehaviour {
   /// <param name="context"></param>
   private void OnSelectTouchPerformed(InputAction.CallbackContext context) {
     Vector2 screenPosition = context.ReadValue<Vector2>();
-    _planeSelection.HandleSelectPlane(screenPosition);
+    if (!view.IsPointerOverUI(screenPosition)) {
+      _planeSelection.HandleSelectPlane(screenPosition);
+    }
   }
 }
