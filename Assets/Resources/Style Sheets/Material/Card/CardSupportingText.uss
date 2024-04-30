@@ -1,0 +1,11 @@
+.card__supporting-text {
+    margin: 0 0 32px 0;
+    padding: 0;
+    
+    -unity-font-definition: var(--type-body-small-font);
+    font-size: var(--type-body-small-size);
+    letter-spacing: var(--type-body-small-tracking);
+    white-space: normal;
+    
+    color: var(--color-on-surface);
+}

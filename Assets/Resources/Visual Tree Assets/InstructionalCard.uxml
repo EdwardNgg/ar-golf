@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Material.Card.CardContent>
+        <Material.Card.CardHeadline name="instructional-card-headline"/>
+        <Material.Card.CardSupportingText name="instructional-card-text" />
+        <Material.Card.CardActions>
+            <Material.Card.CardButton name="instructional-card-button" label-text="Continue" />
+        </Material.Card.CardActions>
+    </Material.Card.CardContent>
+</ui:UXML>

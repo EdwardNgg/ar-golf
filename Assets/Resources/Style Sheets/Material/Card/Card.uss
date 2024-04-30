@@ -1,0 +1,28 @@
+.card {
+    width: 100%;
+    padding: 0;
+    
+    border-width: 0;
+    border-radius: var(--shape-corner-large);
+    
+    background-color: var(--color-surface-container-highest);
+    
+    transition: bottom var(--motion-duration-medium4) var(--motion-timing-emphasized-decelerate),
+                left var(--motion-duration-short4) var(--motion-timing-emphasized-accelerate),
+                right var(--motion-duration-medium4) var(--motion-timing-emphasized-accelerate) var(--motion-duration-short1);
+    
+    bottom: 0;
+    left: 0;
+}
+
+.card--bottom {
+    bottom: -110%;
+}
+
+.card--left {
+    left: -110%;
+}
+
+.card--right {
+    left: 110%;
+}

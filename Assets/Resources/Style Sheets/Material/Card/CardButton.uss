@@ -1,0 +1,47 @@
+.card__button {
+    height: 40px;
+    
+    margin: 0;
+    border-radius: 20px;
+    border-width: 0;
+    padding: 0 12px 0 12px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: var(--color-primary);
+    
+    -unity-font-definition: var(--type-label-large-font);
+    font-size: var(--type-label-large-size);
+    letter-spacing: var(--type-label-large-tracking);
+    
+    transition-property: background-color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 200ms;
+}
+
+.card__button > .card__button-label {
+    /* Style Overrides */
+    margin: 0;
+    padding: 0;
+    
+    color: var(--color-on-primary);
+}
+
+.card__button:disabled {
+    /* Style Overrides */
+    opacity: 1.0;
+    
+    /* Background color is --color-on-surface at 0.12 opacity. */
+    background-color: rgba(031, 027, 016, 0.12);
+}
+
+.card__button:disabled > .card__button-label {
+    /* Color is --color-on-surface at 0.38 opacity. */
+    color: rgba(031, 027, 016, 0.38);
+}
+
+.card__button:enabled:active {
+    background-color: rgb(065, 126, 068);
+}
