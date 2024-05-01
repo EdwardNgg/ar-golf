@@ -68,7 +68,28 @@ public class PlaneSelectionController : MonoBehaviour {
     _planeManager = GetComponent<ARPlaneManager>();
     _raycastManager = GetComponent<ARRaycastManager>();
   }
-  
+
+  /// <summary>
+  /// OnEnable is called when the behavior becomes enabled and active.
+  /// </summary>
+  private void OnEnable() {
+    _planeManager.enabled = true;
+  }
+
+  /// <summary>
+  /// OnDisable is called when the behavior becomes disabled and inactive. It stops visualizing AR
+  /// planes that are detected in the application.
+  /// </summary>
+  private void OnDisable() {
+    _planeManager.planePrefab = null;
+    
+    foreach (ARPlane plane in _planeManager.trackables) {
+      if (plane.trackableId != _plane.trackableId) {
+        plane.gameObject.SetActive(false);
+      }
+    }
+  }
+
   /// <summary>
   /// Selects an AR plane through AR raycasts based on a screen position.
   /// </summary>

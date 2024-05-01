@@ -49,10 +49,18 @@ public class Model : MonoBehaviour {
   /// <summary>
   /// The current state of the application.
   /// </summary>
-  private AppState _state = AppState.SurfaceSelection;
+  private AppState _state;
 
   /// <summary>
   /// The currently selected plane.
   /// </summary>
   private ARPlane _plane;
+
+  /// <summary>
+  /// Start is called before the first frame update
+  /// </summary>
+  private void Start() {
+    State = AppState.SurfaceSelection;
+    Plane = null;
+  }
 }

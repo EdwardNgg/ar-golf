@@ -5,6 +5,7 @@
 //  Created by Edward Ng on 04/28/2024.
 //-----------------------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
@@ -53,7 +54,12 @@ public class View : MonoBehaviour {
   private void Awake() {
     _document = GetComponent<UIDocument>();
     _instructionalCards = GetComponent<InstructionalCardView>();
-    
+  }
+
+  /// <summary>
+  /// OnEnable is called when the behavior becomes enabled and active.
+  /// </summary>
+  private void OnEnable() {
     if (model != null) {
       model.StateChange += OnStateChange;
       model.PlaneChange += OnPlaneChange;
@@ -61,11 +67,13 @@ public class View : MonoBehaviour {
   }
 
   /// <summary>
-  /// Start is called before the first frame update.
+  /// OnDisabled is called when the behavior becomes disabled and inactive.
   /// </summary>
-  private void Start() {
-    OnStateChange(model.State);
-    OnPlaneChange(model.Plane);
+  private void OnDestroy() {
+    if (model != null) {
+      model.StateChange -= OnStateChange;
+      model.PlaneChange -= OnPlaneChange;
+    }
   }
 
   /// <summary>
