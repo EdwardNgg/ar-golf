@@ -12,8 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
   m_Name: ReferenceImageLibrary
   m_EditorClassIdentifier: 
-  m_GuidLow: 0
-  m_GuidHigh: 0
+  m_GuidLow: 5267731262224179742
+  m_GuidHigh: 9751577812314217362
   m_DataStore:
     m_Storage: []
-  m_Images: []
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4683826919589267877
+      m_GuidHigh: 4347151867430545057
+    m_SerializedTextureGuid:
+      m_GuidLow: 8359427049819645542
+      m_GuidHigh: 126707031555815035
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: ARMarkerCircle
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4930964052839426170
+      m_GuidHigh: 14573927885521064581
+    m_SerializedTextureGuid:
+      m_GuidLow: 1496612112225713361
+      m_GuidHigh: 4724602573007585882
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: ARMarkerCircleIn
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4710337286550720032
+      m_GuidHigh: 1713809013686532530
+    m_SerializedTextureGuid:
+      m_GuidLow: 2654213392162271286
+      m_GuidHigh: 8973470300156094026
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: ARMarkerCircleOut
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4783895296417702037
+      m_GuidHigh: 12099490277425783197
+    m_SerializedTextureGuid:
+      m_GuidLow: 14181434480579145022
+      m_GuidHigh: 8527210199271438633
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: ARMarkerFlag
+    m_Texture: {fileID: 0}
