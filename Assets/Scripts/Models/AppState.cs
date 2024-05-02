@@ -3,5 +3,6 @@
 /// </summary>
 public enum AppState {
   SurfaceSelection,
-  MarkerRegistration
+  MarkerRegistration,
+  Build,
 }

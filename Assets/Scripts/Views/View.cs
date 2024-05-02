@@ -5,7 +5,6 @@
 //  Created by Edward Ng on 04/28/2024.
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -31,6 +30,8 @@ public class View : MonoBehaviour {
   /// </summary>
   private InstructionalCardView _instructionalCards;
 
+  private TabsView _tabs;
+
   /// <summary>
   /// Determines if the pointer at a screen position is over a UI element.
   /// </summary>
@@ -55,6 +56,7 @@ public class View : MonoBehaviour {
   private void Awake() {
     _document = GetComponent<UIDocument>();
     _instructionalCards = GetComponent<InstructionalCardView>();
+    _tabs = GetComponent<TabsView>();
   }
 
   /// <summary>
@@ -127,7 +129,12 @@ public class View : MonoBehaviour {
             onButtonPointerDown: () => {
               _instructionalCards.RemoveCard();
               _instructionalCards.enabled = false;
+              model.State = AppState.Build;
             });
+        break;
+      }
+      case AppState.Build: {
+        _tabs.enabled = true;
         break;
       }
     }

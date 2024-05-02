@@ -157,9 +157,12 @@
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     
     height: 100%;
     width: 100%;
-    padding: 16px;
+}
+
+.body--end {
+    justify-content: flex-end;
 }

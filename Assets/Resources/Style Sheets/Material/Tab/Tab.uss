@@ -30,8 +30,6 @@
     flex-direction: column;
     
     background-color: rgba(0, 0, 0, 0);
-    
-    opacity: 0.0;
 
     transition: opacity;
     transition-duration: var(--motion-duration-short2);
@@ -39,7 +37,6 @@
 }
 
 .tab--active .tab__content {
-    opacity: 1.0;
     border-bottom-width: 3px;
     border-bottom-color: var(--color-primary);
 }
@@ -55,7 +52,6 @@
     white-space: normal;
     
     color: var(--color-on-surface-variant);
-    opacity: 1.0;
 
     transition: color;
     transition-duration: var(--motion-duration-short2);
@@ -71,7 +67,6 @@
     font-size: 24px;
     
     color: var(--color-on-surface-variant);
-    opacity: 1.0;
 
     transition: color;
     transition-duration: var(--motion-duration-short2);

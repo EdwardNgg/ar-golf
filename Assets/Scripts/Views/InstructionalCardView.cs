@@ -37,7 +37,16 @@ public class InstructionalCardView : MonoBehaviour {
   private void Awake() {
     _document = GetComponent<UIDocument>();
   }
-  
+
+  /// <summary>
+  /// OnDisable is called when the behavior becomes disabled and inactive.
+  /// </summary>
+  private void OnDisable() {
+    VisualElement body = _document.rootVisualElement.Q<VisualElement>(className: "body");
+    body.RemoveFromClassList("body--end");
+    body.Clear();
+  }
+
   /// <summary>
   /// Modifies the disabled attribute of the button in the instructional card.
   /// </summary>
