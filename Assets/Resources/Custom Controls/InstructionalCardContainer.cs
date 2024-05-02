@@ -103,6 +103,7 @@ public class InstructionalCardContainer : Box {
       nextCard.AddToClassList(Card.BottomClassName);
       nextCard.RegisterCallback<GeometryChangedEvent>(EnterFromBottom);
       nextCard.RegisterCallback<TransitionEndEvent>(ExitToLeft);
+      nextCard.RegisterCallback<TransitionEndEvent>(ExitToBottom);
       nextCard.RegisterCallback<DetachFromPanelEvent>(AddNextCardOnDetach);
       
       hierarchy.Add(nextCard);
@@ -113,6 +114,20 @@ public class InstructionalCardContainer : Box {
     }
   }
 
+  /// <summary>
+  /// Removes the instructional card from the container.
+  /// </summary>
+  public void RemoveCard() {
+    if (childCount != 0) {
+      _currentCard.AddToClassList(Card.BottomClassName);
+    }
+  }
+
+  /// <summary>
+  /// EnterFromBottom is run when the new instructional card is rendered or when their geometry
+  /// first changes. It animates the card entering the view from the bottom.
+  /// </summary>
+  /// <param name="evt">The geometry changed event.</param>
   private void EnterFromBottom(GeometryChangedEvent evt) {
     if (evt.currentTarget is InstructionalCard card) {
       card.RemoveFromClassList(Card.BottomClassName);
@@ -122,6 +137,12 @@ public class InstructionalCardContainer : Box {
     evt.StopPropagation();
   }
 
+  /// <summary>
+  /// EnterFromRight is run when the new instructional card is rendered or when their geometry
+  /// first changes. It animates the card entering the view from the right. If there is another card
+  /// queued, the card will proceed to exit the screen to the left.
+  /// </summary>
+  /// <param name="evt">The geometry changed event.</param>
   private void EnterFromRight(GeometryChangedEvent evt) {
     if (evt.currentTarget is InstructionalCard card) {
       card.RemoveFromClassList(Card.RightClassName);
@@ -134,12 +155,33 @@ public class InstructionalCardContainer : Box {
     evt.StopPropagation();
   }
 
+  /// <summary>
+  /// ExitToLeft is run when the current instructional card finishes transitioning to the left. It
+  /// destorys the current instructional card.
+  /// </summary>
+  /// <param name="evt">The transition ended event.</param>
   private void ExitToLeft(TransitionEndEvent evt) {
     if (evt.currentTarget is InstructionalCard card &&
         evt.stylePropertyNames.Contains("left") &&
         card.ClassListContains(Card.LeftClassName)) {
       Clear();
     }
+    evt.PreventDefault();
+    evt.StopPropagation();
+  }
+
+  /// <summary>
+  /// ExitToBottom is run when the current instructional card finishes transitioning to the bottom.
+  /// It destroys the current instructional card.
+  /// </summary>
+  /// <param name="evt">The transition ended event.</param>
+  private void ExitToBottom(TransitionEndEvent evt) {
+    if (evt.currentTarget is InstructionalCard card &&
+        evt.stylePropertyNames.Contains("bottom") &&
+        card.ClassListContains(Card.BottomClassName)) {
+      Clear();
+    }
+    
     evt.PreventDefault();
     evt.StopPropagation();
   }
@@ -155,6 +197,7 @@ public class InstructionalCardContainer : Box {
         nextCard.AddToClassList(Card.RightClassName);
         nextCard.RegisterCallback<GeometryChangedEvent>(EnterFromRight);
         nextCard.RegisterCallback<TransitionEndEvent>(ExitToLeft);
+        nextCard.RegisterCallback<TransitionEndEvent>(ExitToBottom);
         nextCard.RegisterCallback<DetachFromPanelEvent>(AddNextCardOnDetach);
         hierarchy.Add(nextCard);
       }

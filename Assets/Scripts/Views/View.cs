@@ -124,7 +124,10 @@ public class View : MonoBehaviour {
             headline: "Marker Registration",
             supportingText: "Place the four markers on the surface to create the starting point, " +
                             "teleportation points, and goal.",
-            onButtonPointerDown: () => { });
+            onButtonPointerDown: () => {
+              _instructionalCards.RemoveCard();
+              _instructionalCards.enabled = false;
+            });
         break;
       }
     }

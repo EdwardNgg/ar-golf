@@ -57,4 +57,11 @@ public class InstructionalCardView : MonoBehaviour {
   public void AddCard(string headline, string supportingText, Action onButtonPointerDown) {
     _container.AddCard(headline, supportingText, onButtonPointerDown);
   }
+
+  /// <summary>
+  /// Removes the card from the instructional card container.
+  /// </summary>
+  public void RemoveCard() {
+    _container.RemoveCard();
+  }
 }
