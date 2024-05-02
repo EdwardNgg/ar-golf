@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -13,23 +14,22 @@ using UnityEngine.XR.ARFoundation;
 /// The Model represents the state of the application and performs business logic and operations.
 /// </summary>
 public class Model : MonoBehaviour {
-
+  
   /// <summary>
-  /// The current state of the application.
+  /// The PlaneChange event occurs when the user selects/deselects an AR plane.
   /// </summary>
-  public AppState State {
-    get => _state;
-    set {
-      _state = value;
-      StateChange?.Invoke(value);
-    }
-  }
-
+  public event Action<ARPlane> PlaneChange;
+  
   /// <summary>
   /// The StateChange event occurs when the application state is updated.
   /// </summary>
   public event Action<AppState> StateChange;
-
+  
+  /// <summary>
+  /// The TrackedImagesChanged event fires when the list of tracked images is updated.
+  /// </summary>
+  public event Action<List<ARTrackedImage>> TrackedImagesChanged;
+  
   /// <summary>
   /// The currently selected plane.
   /// </summary>
@@ -42,9 +42,25 @@ public class Model : MonoBehaviour {
   }
   
   /// <summary>
-  /// The PlaneChange event occurs when the user selects/deselects an AR plane.
+  /// The current state of the application.
   /// </summary>
-  public event Action<ARPlane> PlaneChange;
+  public AppState State {
+    get => _state;
+    set {
+      _state = value;
+      StateChange?.Invoke(value);
+    }
+  }
+  
+  /// <summary>
+  /// The maximum number of tracked images in the application.
+  /// </summary>
+  public int maximumTrackedImages;
+
+  /// <summary>
+  /// The list of tracked images with corresponding marker objects in the application.
+  /// </summary>
+  public List<ARTrackedImage> trackedImages;
   
   /// <summary>
   /// The current state of the application.
@@ -62,5 +78,14 @@ public class Model : MonoBehaviour {
   private void Start() {
     State = AppState.SurfaceSelection;
     Plane = null;
+  }
+
+  /// <summary>
+  /// Adds a tracked image and its corresponding spawned object to the model.
+  /// </summary>
+  /// <param name="image">A new tracked image.</param>
+  public void AddTrackedImageObject(ARTrackedImage image) {
+    trackedImages.Add(image);
+    TrackedImagesChanged?.Invoke(trackedImages);
   }
 }

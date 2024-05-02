@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
@@ -63,16 +64,18 @@ public class View : MonoBehaviour {
     if (model != null) {
       model.StateChange += OnStateChange;
       model.PlaneChange += OnPlaneChange;
+      model.TrackedImagesChanged += OnTrackedImagesChanged;
     }
   }
 
   /// <summary>
-  /// OnDisabled is called when the behavior becomes disabled and inactive.
+  /// OnDisable is called when the behavior becomes disabled and inactive.
   /// </summary>
-  private void OnDestroy() {
+  private void OnDisable() {
     if (model != null) {
       model.StateChange -= OnStateChange;
       model.PlaneChange -= OnPlaneChange;
+      model.TrackedImagesChanged -= OnTrackedImagesChanged;
     }
   }
 
@@ -85,6 +88,18 @@ public class View : MonoBehaviour {
   private void OnPlaneChange(ARPlane plane) {
     if (model.State == AppState.SurfaceSelection) {
       bool disabled = plane == null;
+      _instructionalCards.SetButtonDisabled(disabled);
+    }
+  }
+
+  /// <summary>
+  /// OnTrackedImagesChanged runs once the application registers the required amount of tracked
+  /// images and spawns their corresponding objects. Enables the continue button in the
+  /// instructional card.
+  /// </summary>
+  private void OnTrackedImagesChanged(List<ARTrackedImage> list) {
+    if (model.State == AppState.MarkerRegistration) {
+      bool disabled = list.Count < model.maximumTrackedImages;
       _instructionalCards.SetButtonDisabled(disabled);
     }
   }

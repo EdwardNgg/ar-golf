@@ -504,6 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19cf3d3c6d645a1816cfbea05512593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maximumTrackedImages: 4
+  trackedImages: []
 --- !u!114 &666506293
 MonoBehaviour:
   m_ObjectHideFlags: 0

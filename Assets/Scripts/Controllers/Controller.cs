@@ -23,17 +23,17 @@ class Controller : MonoBehaviour {
   /// <summary>
   /// The controller responsible for handling user input actions.
   /// </summary>
-  private ActionController _actions;
+  private ActionController _actionControl;
 
   /// <summary>
   /// The controller responsible for spawning and managing marker objects.
   /// </summary>
-  private MarkerController _markers;
+  private MarkerController _markerControl;
   
   /// <summary>
   /// The controller responsible for selecting planes.
   /// </summary>
-  private PlaneSelectionController _planeSelection;
+  private PlaneSelectionController _planeSelectControl;
 
   /// <summary>
   /// Awake is called when a new instance of the behavior is created.
@@ -41,9 +41,9 @@ class Controller : MonoBehaviour {
   private void Awake() {
     _model = GetComponent<Model>();
     
-    _planeSelection = GetComponent<PlaneSelectionController>();
-    _markers = GetComponent<MarkerController>();
-    _actions = GetComponent<ActionController>();
+    _planeSelectControl = GetComponent<PlaneSelectionController>();
+    _markerControl = GetComponent<MarkerController>();
+    _actionControl = GetComponent<ActionController>();
   }
 
   /// <summary>
@@ -54,8 +54,12 @@ class Controller : MonoBehaviour {
       _model.StateChange += OnStateChange;
     }
     
-    if (_planeSelection != null) {
-      _planeSelection.PlaneSelected += OnPlaneSelected;
+    if (_planeSelectControl != null) {
+      _planeSelectControl.PlaneSelected += OnPlaneSelected;
+    }
+
+    if (_markerControl != null) {
+      _markerControl.TrackedImageObjectAdded += OnTrackedImageObjectAdded;
     }
   }
 
@@ -67,8 +71,12 @@ class Controller : MonoBehaviour {
       _model.StateChange -= OnStateChange;
     }
     
-    if (_planeSelection != null) {
-      _planeSelection.PlaneSelected -= OnPlaneSelected;
+    if (_planeSelectControl != null) {
+      _planeSelectControl.PlaneSelected -= OnPlaneSelected;
+    }
+
+    if (_markerControl != null) {
+      _markerControl.TrackedImageObjectAdded -= OnTrackedImageObjectAdded;
     }
   }
 
@@ -87,17 +95,24 @@ class Controller : MonoBehaviour {
   private void OnStateChange(AppState state) {
     switch (state) {
       case AppState.SurfaceSelection: {
-        _actions.selectMode = ActionController.SelectionMode.Plane;
-        _planeSelection.enabled = true;
-        _markers.enabled = false;
+        _actionControl.selectMode = ActionController.SelectionMode.Plane;
+        _planeSelectControl.enabled = true;
+        _markerControl.enabled = false;
         break;
       }
       case AppState.MarkerRegistration: {
-        _actions.selectMode = ActionController.SelectionMode.None;
-        _planeSelection.enabled = false;
-        _markers.enabled = true;
+        _actionControl.selectMode = ActionController.SelectionMode.None;
+        _planeSelectControl.enabled = false;
+        _markerControl.enabled = true;
         break;
       }
     }
+  }
+
+  /// <summary>
+  /// OnTrackedImageObjectAdded runs when a new object is spawned on a tracked image. 
+  /// </summary>
+  private void OnTrackedImageObjectAdded(ARTrackedImage image) {
+    _model.AddTrackedImageObject(image);
   }
 }

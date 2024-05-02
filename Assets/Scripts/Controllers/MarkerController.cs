@@ -34,9 +34,21 @@ public class MarkerController : MonoBehaviour {
   }
 
   /// <summary>
+  /// The TrackedImageObjectAdded event fires when a new object has spawned on top of a tracked
+  /// image.
+  /// </summary>
+  public event Action<ARTrackedImage> TrackedImageObjectAdded;
+
+  /// <summary>
   /// A list of XR Reference Image names along with their corresponding tracked image prefabs.
   /// </summary>
   public List<ImagePrefabPair> imagePrefabPairs;
+
+  /// <summary>
+  /// Whether all possible tracked images have been scanned and the appropriate objects spawned on
+  /// top of the markers.
+  /// </summary>
+  public bool IsComplete => _trackedImageObjects.Count >= imagePrefabPairs.Count; 
 
   /// <summary>
   /// The ARTrackedImageManager that performs 2D image tracking.
@@ -103,6 +115,7 @@ public class MarkerController : MonoBehaviour {
       if (imagePrefabPair != null) {
         GameObject spawnedObject = Instantiate(imagePrefabPair.trackedImagePrefab, image.transform);
         _trackedImageObjects.Add(imageName, spawnedObject);
+        TrackedImageObjectAdded?.Invoke(image);
       }
     }
   }

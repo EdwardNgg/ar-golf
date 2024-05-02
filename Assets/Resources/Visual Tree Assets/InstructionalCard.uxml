@@ -4,7 +4,11 @@
         <Material.Card.CardHeadline name="instructional-card-headline"/>
         <Material.Card.CardSupportingText name="instructional-card-text" />
         <Material.Card.CardActions>
-            <Material.Card.CardButton name="instructional-card-button" label-text="Continue" />
+            <Material.Card.CardButton 
+                    name="instructional-card-button" 
+                    label-text="Continue" 
+                    disabled ="true"
+            />
         </Material.Card.CardActions>
     </Material.Card.CardContent>
 </ui:UXML>
