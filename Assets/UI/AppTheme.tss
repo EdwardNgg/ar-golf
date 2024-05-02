@@ -34,6 +34,8 @@
     --color-inverse-primary: #99D4A3;
     --color-scrim: #000000;
     --color-shadow: #000000;
+
+    --icon-ref-font: url("/Assets/Resources/Fonts & Materials/BoxIcons SDF.asset");
     
     --motion-duration-short1: 50ms;
     --motion-duration-short2: 100ms;
@@ -52,6 +54,7 @@
     --motion-duration-extra-long3: 900ms;
     --motion-duration-extra-long4: 1000ms;
     /* Placeholder for cubic-bezier(0.05, 0.7, 0.1, 1)  */
+    --motion-timing-emphasized: ease-out-cubic;
     --motion-timing-emphasized-decelerate:  ease-out-cubic;
     --motion-timing-emphasized-accelerate: ease-in-cubic;
     

@@ -67,7 +67,7 @@ public class InstructionalCard : Card {
   /// <summary>
   /// The action that is taken when the button in the InstructionalCard is pressed.
   /// </summary>
-  private Action _buttonAction;
+  private readonly Action _buttonAction;
   
   /// <summary>
   /// Initializes and returns an empty InstructionalCard.

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="UnityEngine.UIElements">
+    <Style path="Style Sheets/Material/Tab/Tab" />
+    <Box name="tab-content"  class="tab__content">
+        <Label name="tab-icon" class="tab__icon" />
+        <Label name="tab-label" class="tab__label" />
+    </Box>
+</UXML>
