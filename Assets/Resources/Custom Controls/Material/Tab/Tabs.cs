@@ -61,6 +61,11 @@ public class Tabs : Box {
   private readonly string _styleSheetPath = "Style Sheets/Material/Tab/Tabs";
 
   /// <summary>
+  /// The current tab that is active.
+  /// </summary>
+  private Tab _activeTab => this.Q<Tab>(className: "tab--active");
+
+  /// <summary>
   /// Initializes and returns an instance of Tabs.
   /// </summary>
   public Tabs() {
@@ -68,5 +73,18 @@ public class Tabs : Box {
     styleSheets.Add(styleSheet);
     
     AddToClassList(_className);
+  }
+
+  /// <summary>
+  /// Sets a tab active using its tab name.
+  /// </summary>
+  /// <param name="tabName">The name of the tab to set active.</param>
+  public void SetActive(string tabName) {
+    Tab activeTab = _activeTab;
+    if (activeTab != null) {
+      _activeTab.active = false;
+    }
+
+    this.Q<Tab>(tabName).active = true;
   }
 }

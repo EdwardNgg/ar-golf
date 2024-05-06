@@ -17,6 +17,10 @@
     transition-timing-function: var(--motion-timing-emphasized);
 }
 
+.tab:active {
+    background-color: #E6E0D8;
+}
+
 .tab__content {
     height: 100%;
     
@@ -30,10 +34,6 @@
     flex-direction: column;
     
     background-color: rgba(0, 0, 0, 0);
-
-    transition: opacity;
-    transition-duration: var(--motion-duration-short2);
-    transition-timing-function: var(--motion-timing-emphasized);
 }
 
 .tab--active .tab__content {

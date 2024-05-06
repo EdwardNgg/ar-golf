@@ -108,7 +108,6 @@ public class MarkerController : MonoBehaviour {
   /// <param name="image">The image tracked by the tracked image manager</param>
   private void CreateMarkerObject(ARTrackedImage image) {
     string imageName = image.referenceImage.name;
-    Debug.Log($"Instantiating {imageName}.");
     if (!_trackedImageObjects.ContainsKey(imageName)) {
       ImagePrefabPair imagePrefabPair =
           imagePrefabPairs.Find(pair => pair.referenceImageName == imageName);

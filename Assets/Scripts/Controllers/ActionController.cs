@@ -79,7 +79,6 @@ public class ActionController : MonoBehaviour {
         case SelectionMode.None:
           break;
       }
-
     }
   }
 }

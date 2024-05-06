@@ -193,14 +193,14 @@ public class Tab : Box {
   }
 
   
-  public Tab(string newLabel, string newIcon) {
+  public Tab(string label, string icon) {
     VisualTreeAsset asset = Resources.Load<VisualTreeAsset>(_assetPath);
     asset.CloneTree(this);
     
     AddToClassList(_className);
     
-    this.label = newLabel;
-    this.icon = newIcon;
+    this.label = label;
+    this.icon = icon;
     name = label;
   }
 }

@@ -25,6 +25,8 @@ class Controller : MonoBehaviour {
   /// </summary>
   private ActionController _actionControl;
 
+  private BuildController _buildControl;
+
   /// <summary>
   /// The controller responsible for spawning and managing marker objects.
   /// </summary>
@@ -44,6 +46,7 @@ class Controller : MonoBehaviour {
     _planeSelectControl = GetComponent<PlaneSelectionController>();
     _markerControl = GetComponent<MarkerController>();
     _actionControl = GetComponent<ActionController>();
+    _buildControl = GetComponent<BuildController>();
   }
 
   /// <summary>
@@ -104,6 +107,11 @@ class Controller : MonoBehaviour {
         _actionControl.selectMode = ActionController.SelectionMode.None;
         _planeSelectControl.enabled = false;
         _markerControl.enabled = true;
+        break;
+      }
+      case AppState.Build: {
+        _markerControl.enabled = false;
+        _buildControl.enabled = true;
         break;
       }
     }

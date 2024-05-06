@@ -36,6 +36,7 @@ public class TabsView : MonoBehaviour {
     Tabs tabs = new Tabs();
     tabs.Add(new Tab("Build", "cube-alt"));
     tabs.Add(new Tab("Play", "play"));
+    tabs.SetActive("Build");
     
     body.Add(tabs);
   }

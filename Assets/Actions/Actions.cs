@@ -35,6 +35,42 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""pressPrimary"",
+                    ""type"": ""Value"",
+                    ""id"": ""207d82ec-9ba7-4a67-b743-70aaaef74ae1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""pressSecondary"",
+                    ""type"": ""Value"",
+                    ""id"": ""16ceeaaf-ea68-4760-93c1-5df3c66c8b05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""positionPrimary"",
+                    ""type"": ""Value"",
+                    ""id"": ""e8583487-3b3f-4592-b53d-9aa7c71df814"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""positionSecondary"",
+                    ""type"": ""Value"",
+                    ""id"": ""bd48dce4-0662-4cb2-8bda-ceeefa2aea00"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -48,6 +84,50 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""action"": ""select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f35c1f3-e142-40da-aed4-d8cd4de80008"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pressPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e223f097-7f7c-4e26-a39d-73d2ec595c5b"",
+                    ""path"": ""<Touchscreen>/touch1/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pressSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c943d9b0-21e0-4e29-94b1-b02d65fa6c2d"",
+                    ""path"": ""<Touchscreen>/touch0/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""positionPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93e75e56-70bd-468d-b197-5e36355ead90"",
+                    ""path"": ""<Touchscreen>/touch1/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""positionSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +137,10 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         // touch
         m_touch = asset.FindActionMap("touch", throwIfNotFound: true);
         m_touch_select = m_touch.FindAction("select", throwIfNotFound: true);
+        m_touch_pressPrimary = m_touch.FindAction("pressPrimary", throwIfNotFound: true);
+        m_touch_pressSecondary = m_touch.FindAction("pressSecondary", throwIfNotFound: true);
+        m_touch_positionPrimary = m_touch.FindAction("positionPrimary", throwIfNotFound: true);
+        m_touch_positionSecondary = m_touch.FindAction("positionSecondary", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +203,19 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_touch;
     private List<ITouchActions> m_TouchActionsCallbackInterfaces = new List<ITouchActions>();
     private readonly InputAction m_touch_select;
+    private readonly InputAction m_touch_pressPrimary;
+    private readonly InputAction m_touch_pressSecondary;
+    private readonly InputAction m_touch_positionPrimary;
+    private readonly InputAction m_touch_positionSecondary;
     public struct TouchActions
     {
         private @Actions m_Wrapper;
         public TouchActions(@Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @select => m_Wrapper.m_touch_select;
+        public InputAction @pressPrimary => m_Wrapper.m_touch_pressPrimary;
+        public InputAction @pressSecondary => m_Wrapper.m_touch_pressSecondary;
+        public InputAction @positionPrimary => m_Wrapper.m_touch_positionPrimary;
+        public InputAction @positionSecondary => m_Wrapper.m_touch_positionSecondary;
         public InputActionMap Get() { return m_Wrapper.m_touch; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +228,18 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @select.started += instance.OnSelect;
             @select.performed += instance.OnSelect;
             @select.canceled += instance.OnSelect;
+            @pressPrimary.started += instance.OnPressPrimary;
+            @pressPrimary.performed += instance.OnPressPrimary;
+            @pressPrimary.canceled += instance.OnPressPrimary;
+            @pressSecondary.started += instance.OnPressSecondary;
+            @pressSecondary.performed += instance.OnPressSecondary;
+            @pressSecondary.canceled += instance.OnPressSecondary;
+            @positionPrimary.started += instance.OnPositionPrimary;
+            @positionPrimary.performed += instance.OnPositionPrimary;
+            @positionPrimary.canceled += instance.OnPositionPrimary;
+            @positionSecondary.started += instance.OnPositionSecondary;
+            @positionSecondary.performed += instance.OnPositionSecondary;
+            @positionSecondary.canceled += instance.OnPositionSecondary;
         }
 
         private void UnregisterCallbacks(ITouchActions instance)
@@ -143,6 +247,18 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @select.started -= instance.OnSelect;
             @select.performed -= instance.OnSelect;
             @select.canceled -= instance.OnSelect;
+            @pressPrimary.started -= instance.OnPressPrimary;
+            @pressPrimary.performed -= instance.OnPressPrimary;
+            @pressPrimary.canceled -= instance.OnPressPrimary;
+            @pressSecondary.started -= instance.OnPressSecondary;
+            @pressSecondary.performed -= instance.OnPressSecondary;
+            @pressSecondary.canceled -= instance.OnPressSecondary;
+            @positionPrimary.started -= instance.OnPositionPrimary;
+            @positionPrimary.performed -= instance.OnPositionPrimary;
+            @positionPrimary.canceled -= instance.OnPositionPrimary;
+            @positionSecondary.started -= instance.OnPositionSecondary;
+            @positionSecondary.performed -= instance.OnPositionSecondary;
+            @positionSecondary.canceled -= instance.OnPositionSecondary;
         }
 
         public void RemoveCallbacks(ITouchActions instance)
@@ -163,5 +279,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     public interface ITouchActions
     {
         void OnSelect(InputAction.CallbackContext context);
+        void OnPressPrimary(InputAction.CallbackContext context);
+        void OnPressSecondary(InputAction.CallbackContext context);
+        void OnPositionPrimary(InputAction.CallbackContext context);
+        void OnPositionSecondary(InputAction.CallbackContext context);
     }
 }
